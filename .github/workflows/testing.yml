@@ -1,0 +1,17 @@
+name: Uji CI YML  # <--- INI YG BIKIN NAMANYA BEDA DI TAB ACTION
+
+on: [push, pull_request]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0'
+    - name: Install Dependencies
+      run: composer install --prefer-dist --no-progress
+    - name: Run Tests
+      run: ./vendor/bin/phpunit tests/EmailTest.php
